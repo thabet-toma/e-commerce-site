@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 # Create your views here.
-
-def us(request):
-    return render(request,'aboutus.html')
+def home(request):
+    return redirect('/home')
+def home1(request):
+    return render(request,'home.html')
+def reg(request):
+    return render(request,'reg.html')
