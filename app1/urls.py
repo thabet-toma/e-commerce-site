@@ -10,5 +10,6 @@ urlpatterns = [
     path('electronicTool',views.electronicTool),
     path('pro123',views.pro123),
     path('show',views.show),
+    path('regProc',views.regProc),
     
 ]
