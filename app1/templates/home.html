@@ -35,8 +35,13 @@
                     <a href="/phones"class="nav-link mx-4  " href="#" style="color:#d1eccc; font-weight: bold;">Phones</a>
                     <a href="/electronicTool" class="nav-link mx-4   "  style="color:#d1eccc; font-weight: bold;">Electronic Accessories </a>
                 </div>
+                {%if user%}
+                <p style="color:#d1eccc;" class="me-2 my-auto">{{user.first_name}} {{user.last_name}}</p>
+                <a href="/LOGOUT"> <button type="button" class="btn btn-light">logout</button></a>
+                {%else%}
                 <a href="/reg"> <button type="button" class="btn btn-light">sign up</button></a>
                 <a href="/login"> <button type="button" class="btn btn-light ms-2 me-5">sign in</button></a>
+                {%endif%}
             </div>
         </div>
     </nav>
