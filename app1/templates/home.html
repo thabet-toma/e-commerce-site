@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir='rtl' lang='ar'>
+<html  lang='en'>
 <style>
     /* body {
         background-image: url('pexels-photo-777001.jpeg');
@@ -20,19 +20,26 @@
 </head>
 
 <body class="bg-dark">
-    <div class="  justify-content-between align-center" ;>
-
-        <div class="row d-flex justify-content-between ">
-            <div class="col-md-auto m-2">
-                <a class="   btn btn-primary col-md-auto btn-sm  " href="/reg" role="button">تسجيل</a>
-                <a class="  btn btn-primary col-md-auto btn-sm " href="#" role="button">تسجيل الدخول</a>
-
+    <nav class="navbar navbar-expand-lg " style=" background-color:#0c605c">
+        <div class="container-fluid " >
+            <img src="{%static 'images/logo1.png'%}" alt="" style="width:5%;" class="mx-5">
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav mx-auto ">
+                    <a href="/home" class="nav-link mx-4   active" aria-current="page" href="#" style="color:#d1eccc; font-weight: bold;">Home</a>
+                    <a href="/pc"class="nav-link mx-4  " href="#"  style="color:#d1eccc; font-weight: bold;">pc</a>
+                    <a href="/phones"class="nav-link mx-4  " href="#" style="color:#d1eccc; font-weight: bold;">Phones</a>
+                    <a href="/electronicTool" class="nav-link mx-4   "  style="color:#d1eccc; font-weight: bold;">Electronic Accessories </a>
+                </div>
+                <a href="/reg"> <button type="button" class="btn btn-light">sign up</button></a>
+                <a href="/login"> <button type="button" class="btn btn-light ms-2 me-5">sign in</button></a>
             </div>
-            <img src="{%static 'images/logo.PNG'%}" class=" col-1 m-1 " style="width:20% ;">
-            <a class="col-1 m-2  " style="text-decoration: none;" href="#">من نحن</a>
-
         </div>
-    </div>
+    </nav>
 
     <div id="carouselExampleCaptions" class="carousel slide container container w-50 mt-4" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -45,21 +52,21 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <a href="#"><img src="{% static 'images/pc.jpeg'%}" class="d-block w-100" alt="pc img"></a>
+                <a href="/pc"><img src="{% static 'images/pc.jpeg'%}" class="d-block w-100" alt="pc img"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>أجهزة الكمبيوتر </h5>
                     <p>جميع اجهزه الكمبيوتر</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <a href="@"><img src="{% static 'images/phones.jpeg'%}" class="d-block w-100" alt="phone img"></a>
+                <a href="/phones"><img src="{% static 'images/phones.jpeg'%}" class="d-block w-100" alt="phone img"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5 class="text-dark">الهواتف</h5>
                     <p class="text-dark budj">احدث الهواتف بارخص الاسعار</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <a href="#"><img src="{% static 'images/electronic.jpg'%}" class="d-block w-100" style="height: 410px;" alt="exssoris"></a>
+                <a href="/electronicTool"><img src="{% static 'images/accsories.jpg'%}" class="d-block w-100" style="height: 410px;" alt="exssoris"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>ملحقات الهواتف واجهزه الكمبيوتر</h5>
                     <p>جميع الملحقات الاكترونيه بارخص الاسعار</p>
