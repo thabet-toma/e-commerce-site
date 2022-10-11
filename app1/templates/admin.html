@@ -47,20 +47,52 @@
     <br>
     <div class="div">
         <div class="add">
-            <form action="/add" method="post">
-
-
+            <form action="/addproduct" method="post" >
+                {% csrf_token %}
+               
                 <h1>Adding Devise here</h1>
                 Ptoduct name : <input type="text" name="name"> <br><br><br>
-                Product Model : <input type="text" name="model"> <br><br><br>
-                prodect prisce : <input type="text" name="prisce"> <br><br><br>
+                
+                Product Model :<input type="number"  name="model"
+                    value="models"
+                    min="2000" max="2022">
+                    <br><br><br>
+                <!-- Product Model : <input type="number" name="model"> <br><br><br> -->
+
+                prodect prisce : <input type="number" name="prisce" value="Prisce" min="1" > <br><br><br>
                 prodect location : <input type="text" name="location"> <br><br><br>
+                <select name="catagory" >
+                    <option value="pc">pc</option>
+                    <option value="phone">phone</option>
+                    <option value="part">part</option>
+                </select><br><br><br>
 
-                Descriptions : <br> <br> <textarea type="text" name="desc" cols="50" rows="6"> </textarea> <br><br><br>
+                <label for="image">image</label>
+                <input type="file" name="image" accept="image/*">
+                <img src="/media/{{ i.image }}">
+                <br><br><br>
+              
 
+                Descriptions : <br> <br> <textarea type="text" name="desc" cols="50" rows="4"> </textarea> <br>
+                {% if messages %}
+                <ul class="messages">    
+                {% for message in messages %}    
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+                </ul>
+                {% endif %}
                 <button type="submit"> Add Devise </button>
 
             </form>
+           
+      
+
+
+            <!-- <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                 {{ form.as_p }}
+                <button type="submit">Upload</button> -->
+              </form>
         </div>
 
 
@@ -75,19 +107,16 @@
                     </tr>
                     <tr>
 
-
+                        <td>User Name</td>
                         <td> product name</td>
                         <td> product modele </td>
                         <td> product prisce</td>
-                        <td> product description</td>
+                        
                         <td> product state</td>
-
-
+                        <td>action</td>
 
                     </tr>
-                    <tr>
-                        <td>fuck</td>
-                    </tr>
+                  
                 </table>
             </form>
         </div>

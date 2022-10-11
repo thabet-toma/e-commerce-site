@@ -1,5 +1,6 @@
+from email.policy import default
 from django.db import models
-
+import re
 
 class location(models.Model):
 
@@ -10,7 +11,7 @@ class location(models.Model):
         apartment=models.CharField(max_length=255)
         created_at=models.DateTimeField(auto_now_add=True)
         updated_at=models.DateTimeField(auto_now=True)
-import re
+
 class UserManager(models.Manager):
     def basic_validator(self,postData):
         errors={}
@@ -46,23 +47,55 @@ class Users(models.Model):
     location=models.ForeignKey(location,related_name="user_loc",on_delete=None)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
+    objects=UserManager()
+
 class categories(models.Model):
 
     category=models.CharField(max_length=255)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
+
+
+class addproduct(models.Manager):
+    def validator(self,postData):
+        errors={}
+        if len(postData['name']) < 6:
+            errors["name"] = " name should be at least 5 characters"
+
+        if len(postData['model']) < 1:
+            errors["model"] = " modele is required"
+        model_regex=re.compile(r'^[2000-2022]')
+        if not model_regex.match(r'^[2000-2022]'):    # test whether a field matches the pattern            
+            errors['model'] = "Invalid modele!, modele must be number "
+
+        if len(postData['desc']) < 10:
+            errors["desc"] = "description must be more than 10 characters"
+
+        if len(postData['prisce']) < 0:
+            errors["prisce"] = "prisce is required"
+        prisce_regex=re.compile(r'^[0-9]')
+        if not prisce_regex.match(r'^[0-9]'):    # test whether a field matches the pattern            
+            errors['prisce'] = "Invalid prisce!"
+
+        return errors
+
+
+
 class products(models.Model):
 
     name=models.CharField(max_length=255)
     model_y=models.IntegerField()
     description=models.TextField()
     price=models.IntegerField()
-    categotry=models.ForeignKey(categories,related_name='product',on_delete=None ,blank=True)
+    categotry=models.ForeignKey(categories,related_name='product',on_delete=None ,blank=True,null=True)
+    image=models.ImageField(upload_to='images',blank=True,null=True)
+    state=models.BooleanField(null=True,blank=True,default=False)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
+    objects=addproduct()
+
 class orders(models.Model):
 
-    location=models.ForeignKey(location,related_name="order_loc",on_delete=None)
     user=models.ForeignKey(Users,related_name="user_ord",on_delete=None)
     product=models.ManyToManyField(products,related_name="order_product")
 
