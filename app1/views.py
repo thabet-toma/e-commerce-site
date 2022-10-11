@@ -7,32 +7,56 @@ import  bcrypt
 def home(request):
     return redirect('/home')
 def home1(request):
-    return render(request,'home.html')
+    
+    if 'id' in request.session:
+        context={'user':Users.objects.get(id=request.session["id"])}
+        return render(request,'home.html',context)
+    else:
+        return render(request,'home.html')
+
 def reg(request):
     return render(request,'reg.html')
 def pc(request):
-    context={
-        'allproduct':products.objects.all()
-    }
     return render(request,'pc.html')
 def login(request):
     
     return render(request,'login.html')
 def phones(request):
-    return render(request,'phones.html')
+    if 'id' in request.session:
+        context={'user':Users.objects.get(id=request.session["id"])}
+        return render(request,'phones.html',context)
+    else:
+        return render(request,'phones.html')
 def electronicTool(request):
-    return render(request,'electronicTool.html')
+    if 'id' in request.session:
+        context={'user':Users.objects.get(id=request.session["id"])}
+        return render(request,'electronicTool.html',context)
+    else:
+        return render(request,'electronicTool.html')
 def pro123(request):
     
     return render(request,'admin.html')
 def show(request):
     return render(request,'showproduct.html')
 def regProc(request):
-    
-    hash=bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
-    x=location.objects.create(city=request.POST['city'],region=request.POST('region'),street=request.POST('street'),building=request.POST('building'),apartment=request.POST('apartment'))
-    Users.objects.create(first_name=request.POST['first_name'],last_name=request.POST['last_name'],email=request.POST['email'],password=hash,phone_number=request.POST['phone_number'],location=x)
-    return redirect('home1.html')
+    errors1 = Users.objects.basic_validator(request.POST)
+    errors2 = location.objects.basic_validator(request.POST)
+    if len(errors1) > 0 or len(errors2) >0:
+        for key, value in errors1.items():
+            messages.error(request, value)
+        for key, value in errors2.items():
+            messages.error(request, value)
+        
+        return redirect('/reg')
+    else:
+
+
+        hash=bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
+        location.objects.create(city=request.POST['city'],region=request.POST['region'],street=request.POST['street'],building=request.POST['building'],apartment=request.POST['apartment'])
+        x=location.objects.last()
+        Users.objects.create(first_name=request.POST['first_name'],last_name=request.POST['last_name'],email=request.POST['email'],password=hash,phone_number=request.POST['phone_number'],location=x)
+        request.session["id"]=x.id
+        return redirect('/home')
 
 
 def addproduct(request):
